@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/bergmannf/gsi-simul/csgogsi"
+	"github.com/bergmannf/csgo-gsi/csgogsi"
 	"io/ioutil"
 )
 
