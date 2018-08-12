@@ -26,14 +26,21 @@ func parseArgs() options {
 }
 
 func store(file *os.File) func(http.ResponseWriter, *http.Request) {
+	processedEvents := 0
 	return func(writer http.ResponseWriter, request *http.Request) {
 		body, err := ioutil.ReadAll(request.Body)
 		request.Body.Close()
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "Could not read request body.")
 		}
+		// Only write on new events and not before the first one.
+		// Otherwise the json syntax is invalid: [,{}]
+		if processedEvents > 0 {
+			file.WriteString(",")
+		}
+		fmt.Println("Received event: ", processedEvents)
 		file.Write(body)
-		file.WriteString(",")
+		processedEvents++
 	}
 }
 
@@ -63,5 +70,7 @@ func main() {
 	}()
 
 	logError(err)
+	fmt.Println("Writing to: ", *options.File)
+	fmt.Println("Listening on port: ", *options.Port)
 	http.ListenAndServe(fmt.Sprintf(":%d", *options.Port), nil)
 }

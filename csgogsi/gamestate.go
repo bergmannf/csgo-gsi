@@ -3,33 +3,33 @@ package csgogsi
 import ()
 
 type GSIData struct {
-	Bomb       Bomb
-	Provider   Provider
-	Map        Map
-	Round      Round
-	Player     Player
-	AllPlayers map[string]Player
+	Bomb       Bomb              `json:"bomb"`
+	Provider   Provider          `json:"provider"`
+	Map        Map               `json:"map"`
+	Round      Round             `json:"round"`
+	Player     Player            `json:"player"`
+	AllPlayers map[string]Player `json:"allplayers"`
 }
 
 type Bomb struct {
-	State    string
-	Position string
-	Player   int
+	State    string `json:"state"`
+	Position string `json:"position"`
+	Player   int    `json:"player"`
 }
 
 type Provider struct {
-	Name      string
-	Appid     int
-	Version   int
-	Steamid   int
-	Timestamp int
+	Name      string `json:"name"`
+	Appid     int    `json:"appid"`
+	Version   int    `json:"version"`
+	Steamid   string `json:"steamid"`
+	Timestamp int64  `json:"timestamp"`
 }
 
 type Map struct {
-	Mode                  string
-	Name                  string
-	Phase                 string
-	Round                 int
+	Mode                  string            `json:"mode"`
+	Name                  string            `json:"name"`
+	Phase                 string            `json:"phase"`
+	Round                 int               `json:"round"`
 	TeamCT                Team              `json:"team_ct"`
 	TeamT                 Team              `json:"team_t"`
 	NumMatchesToWinSeries int               `json:"num_matches_to_win_series"`
@@ -39,77 +39,57 @@ type Map struct {
 }
 
 type Round struct {
-	Phase string
+	Phase string `json:"phase"`
 }
 
 type Team struct {
-	Score                int
+	Score                int `json:"score"`
 	TimeoutsRemaining    int `json:"timeouts_remaining"`
 	MatchesWonThisSeries int `json:"matches_won_this_series"`
 }
 
 type Player struct {
-	Steamid      string
-	Clan         string
-	Name         string
-	ObserverSlot int `json:"observer_slot"`
-	Team         string
-	Activity     string
-	State        PlayerState
-	MatchStats   MatchStats `json:"match_stats"`
-	Weapons      map[string]Weapon
-	Position     string
-	Forward      string
+	Steamid      string            `json:"steamid"`
+	Clan         string            `json:"clan"`
+	Name         string            `json:"name"`
+	ObserverSlot int               `json:"observer_slot"`
+	Team         string            `json:"team"`
+	Activity     string            `json:"activity"`
+	State        PlayerState       `json:"state"`
+	MatchStats   MatchStats        `json:"match_stats"`
+	Weapons      map[string]Weapon `json:"weapons"`
+	Position     string            `json:"position"`
+	Forward      string            `json:"forward"`
 }
 
 type PlayerState struct {
-	Health      int
-	Armor       int
-	Helmet      bool
-	Defusekit   bool
-	Flashed     int
-	Smoked      int
-	Burning     int
-	Money       int
-	RoundKills  int `json:"round_kills"`
-	RoundKillhs int `json:"round_kills_hs"`
-	EquipValue  int
+	Health      int  `json:"health"`
+	Armor       int  `json:"armor"`
+	Helmet      bool `json:"helmet"`
+	Defusekit   bool `json:"defusekit"`
+	Flashed     int  `json:"flashed"`
+	Smoked      int  `json:"smoked"`
+	Burning     int  `json:"burning"`
+	Money       int  `json:"money"`
+	RoundKills  int  `json:"round_kills"`
+	RoundKillhs int  `json:"round_killshs"`
+	EquipValue  int  `json:"equip_value"`
 }
 
 type Weapon struct {
-	Name        string
-	Paintkit    string
-	Type        string //!
-	State       string
-	AmmoClip    int `json:"ammo_clip"`
-	AmmoClipMax int `json:"ammo_clip_max"`
-	AmmoReserve int `json:"ammo_reserve"`
+	Name        string `json:"name"`
+	Paintkit    string `json:"paintkit"`
+	Type        string `json:"type"`
+	State       string `json:"state"`
+	AmmoClip    int    `json:"ammo_clip"`
+	AmmoClipMax int    `json:"ammo_clip_max"`
+	AmmoReserve int    `json:"ammo_reserve"`
 }
 
 type MatchStats struct {
-	Kills   int
-	Assists int
-	Deaths  int
-	Mvps    int
-	Score   int
-}
-
-type GSIConfiguration struct {
-	Name                 string
-	Uri                  string
-	Timeout              string
-	Buffer               string
-	Throttle             string
-	Heartbeat            string
-	Provider             string
-	Map                  string
-	Round                string
-	PlayerId             string `json:"player_id"`
-	AllplayersId         string `json:"allplayers_id"`
-	PlayerState          string `json:"player_state"`
-	AllplayerState       string `json:"allplayer_state"`
-	AllplayersMatchStats string `json:"allplayers_match_stats"`
-	AllplayersWeapon     string `json:"allplayers_weapon"`
-	AllplayersPosition   string `json:"allplayers_position"`
-	PhaseCountdowns      string `json:"phase_countdowns"`
+	Kills   int `json:"kills"`
+	Assists int `json:"assists"`
+	Deaths  int `json:"deaths"`
+	Mvps    int `json:"mvps"`
+	Score   int `json:"score"`
 }
